@@ -12,14 +12,31 @@
 			<input type="text" class="input-text-box" name="currency" placeholder="Enter the cryptocurrency you want to check!"> 
 			<input type="submit" value="Search">
 		  </form>
-      
+          <% if (locals.search_result) { %>
           <div class="search-result">
-            <h1>Bitcoin</h1>
-            <p>2000</p>
+            <h1><%= search_result.symbol %></h1>
+            <table class="display-table">
+              <tr>
+                <th>Last Trade</th>
+                <th>24H%</th>
+                <th>24H Change</th>
+                <th>24H Volume</th>
+              </tr>
+                  <tr>
+                    <td>$<%= search_result.last_trade_price.toFixed(2) %></td>
+                    <td><%= ((search_result.last_trade_price-search_result.price_24h)/(search_result.price_24h) * 100).toFixed(2)%> %</td>
+                    <td><%= (search_result.last_trade_price-search_result.price_24h).toFixed(2) %></td>
+                    <td><%= (search_result.volume_24h).toFixed(1) %></td>
+                  </tr>
+          </table>
           </div>
-
-          
+        <% } %>
+        <% if (locals.search_error){ %>
+          <p>Failed to load search result, please try again!</p>
+        <% } %>
+          <br/>
         <div>
+          <% if (locals.data) { %>
             <table class="display-table">
                 <tr>
                   <th>Assets</th>
@@ -28,18 +45,20 @@
                   <th>24H Change</th>
                   <th>24H Volume</th>
                 </tr>
-                <% if (locals.data) { %>
+                
                  <% data.forEach((element)=> { %>
                     <tr>
                       <td><%= element.symbol %></td>
-                      <td><%= element.last_trade_price %></td>
+                      <td>$<%= element.last_trade_price.toFixed(2) %></td>
                       <td><%= ((element.last_trade_price-element.price_24h)/(element.price_24h) * 100).toFixed(2)%> %</td>
                       <td><%= (element.last_trade_price-element.price_24h).toFixed(2) %></td>
                       <td><%= (element.volume_24h).toFixed(1) %></td>
                     </tr>
                   <% }); %>
-                <% } %>
             </table>
+            <% } else { %>
+              <p>Failed to load data from Blockchain.com</p>
+            <% } %>
         </div>
 
 
