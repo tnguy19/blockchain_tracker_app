@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Blockchain Price Tracker</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="styles/main.css" />
+	</head>
+	<body>
+		<h1>Blockchain Price Tracker</h1>
+		  <form class="search-bar" action="/search" method="POST">
+			<input type="text" class="input-text-box" name="currency" placeholder="Enter the cryptocurrency you want to check!"> 
+			<input type="submit" value="Search">
+		  </form>
+      
+          <div class="search-result">
+            <h1>Bitcoin</h1>
+            <p>2000</p>
+          </div>
+
+          
+        <div>
+            <table class="display-table">
+                <tr>
+                  <th>Assets</th>
+                  <th>Last Trade</th>
+                  <th>24H%</th>
+                  <th>24H Change</th>
+                  <th>24H Volume</th>
+                </tr>
+                <% if (locals.data) { %>
+                 <% data.forEach((element)=> { %>
+                    <tr>
+                      <td><%= element.symbol %></td>
+                      <td><%= element.last_trade_price %></td>
+                      <td><%= ((element.last_trade_price-element.price_24h)/(element.price_24h) * 100).toFixed(2)%> %</td>
+                      <td><%= (element.last_trade_price-element.price_24h).toFixed(2) %></td>
+                      <td><%= (element.volume_24h).toFixed(1) %></td>
+                    </tr>
+                  <% }); %>
+                <% } %>
+            </table>
+        </div>
+
+
+	</body>
+</html>

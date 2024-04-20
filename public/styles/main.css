@@ -1,0 +1,22 @@
+.input-text-box{
+    width: 300px;
+}
+
+.display-table{
+    border: 1px solid black;
+    border-collapse:collapse;
+}
+
+th{
+    border: 1px solid black;
+    max-width:100%;
+    white-space:nowrap;
+    min-width: 150px;
+}
+
+td{
+    border: 1px solid black;
+    max-width:100%;
+    white-space:nowrap;
+    min-width: 150px;
+}
